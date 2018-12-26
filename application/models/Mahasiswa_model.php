@@ -5,4 +5,9 @@
         {
             return $this->db->get('mahasiswa')->result_array();
         }
+
+        public function tambahDataMahasiswa()
+        {
+            return
+        }
     }
