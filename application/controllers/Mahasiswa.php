@@ -30,8 +30,16 @@
             $this->load->view('mahasiswa/tambah');
             $this->load->view('templates/footer');
             }else{
-                $this->Model_mahasiswa->tambahDataMahasiswa();
+                $this->Mahasiswa_model->tambahDataMahasiswa();
+                $this->session->set_flashdata('flash', 'Ditambahkan');
                 redirect('mahasiswa');
             }
+        }
+
+        public function hapus($id)
+        {
+            $this->Mahasiswa_model->hapusDataMahasiswa($id);
+            $this->session->set_flashdata('flash', 'Dihapus');
+            redirect('mahasiswa');
         }
     }
