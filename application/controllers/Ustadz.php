@@ -42,4 +42,32 @@ class Ustadz extends CI_Controller {
         $this->session->set_flashdata('flash', 'Dihapus');
         redirect('ustadz');
     }
+
+    public function detail($id) 
+    {
+        $data['judul'] = 'Detail Data Ustadz';
+        $data['ustadz'] = $this->Ustadz_model->getUstadzById($id);
+        $this->load->view('templates/header', $data);
+        $this->load->view('ustadz/detail', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function ubah()
+    {
+        $data['judul'] = 'Form Ubah Data Ustadz';
+
+        $this->form_validation->set_rules('nrp', 'NRP', 'required|numeric');
+        $this->form_validation->set_rules('nama', 'Nama', 'required');
+        $this->form_validation->set_rules('alamat', 'Alamat');
+
+        if( $this->form_validation->run() == FALSE ) {
+        $this->load->view('templates/header', $data);
+        $this->load->view('ustadz/ubah');
+        $this->load->view('templates/footer');
+        }else{
+            $this->Mahasiswa_model->ubahDataUstadz();
+            $this->session->set_flashdata('flash', 'Diubah');
+            redirect('ustadz');
+        }
+    }
 }
