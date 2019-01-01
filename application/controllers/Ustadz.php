@@ -1,6 +1,7 @@
 <?php
 
-class Ustadz extends CI_Controller {
+class Ustadz extends CI_Controller
+{
     public function __construct()
     {
         parent::__construct();
@@ -19,16 +20,16 @@ class Ustadz extends CI_Controller {
     public function tambah()
     {
         $data['judul'] = 'Form Tambah Data Ustadz';
-        
+
         $this->form_validation->set_rules('nrp', 'NRP', 'required|numeric');
         $this->form_validation->set_rules('nama', 'Nama', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat');
 
-        if ( $this->form_validation->run() == FALSE ){ 
+        if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('ustadz/tambah');
             $this->load->view('templates/footer');
-        }else{
+        } else {
             $this->Ustadz_model->tambahDataUstadz();
             $this->session->set_flashdata('flash', 'Ditambahkan');
             redirect('ustadz');
@@ -43,7 +44,7 @@ class Ustadz extends CI_Controller {
         redirect('ustadz');
     }
 
-    public function detail($id) 
+    public function detail($id)
     {
         $data['judul'] = 'Detail Data Ustadz';
         $data['ustadz'] = $this->Ustadz_model->getUstadzById($id);
@@ -52,19 +53,20 @@ class Ustadz extends CI_Controller {
         $this->load->view('templates/footer');
     }
 
-    public function ubah()
+    public function ubah($id)
     {
         $data['judul'] = 'Form Ubah Data Ustadz';
+        $data['ustadz'] = $this->Ustadz_model->getUstadzById($id);
 
         $this->form_validation->set_rules('nrp', 'NRP', 'required|numeric');
         $this->form_validation->set_rules('nama', 'Nama', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat');
 
-        if( $this->form_validation->run() == FALSE ) {
-        $this->load->view('templates/header', $data);
-        $this->load->view('ustadz/ubah');
-        $this->load->view('templates/footer');
-        }else{
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('ustadz/ubah', $data);
+            $this->load->view('templates/footer');
+        } else {
             $this->Mahasiswa_model->ubahDataUstadz();
             $this->session->set_flashdata('flash', 'Diubah');
             redirect('ustadz');
